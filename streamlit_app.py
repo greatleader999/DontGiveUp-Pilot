@@ -114,8 +114,30 @@ def main():
 
         if st.sidebar.button('실행'):
             prediction = model.predict(pd.DataFrame([user_input]))
-            # 예측된 결과값에 천 단위 구분과 '원' 단위 추가
-            st.sidebar.write(f"예측된 {target_column}: {prediction[0]:,.0f} 원")
+        
+            # target_column에 해당하는 이모지 설정
+            emoji_map = {
+                '배추값': '🥬',
+                '무값': '🥕',
+                '고추값': '🌶️',
+                '마늘값': '🧄',
+                '쪽파값': '🌱'
+            }
+        
+            # 이모지 가져오기, 기본값은 빈 문자열로 설정
+            emoji = emoji_map.get(target_column, '')
+        
+            # HTML을 사용해 이모지 크기 조절
+            emoji_html = f'<span style="font-size: 3em;">{emoji}</span>'
+        
+            # 예측된 결과값에 천 단위 구분과 '원' 단위 추가, 이모지 삽입
+            st.sidebar.markdown(f"예측된 {target_column}: {emoji_html} {prediction[0]:,.0f} 원", unsafe_allow_html=True)
+
+       
+       # if st.sidebar.button('실행'):
+       #     prediction = model.predict(pd.DataFrame([user_input]))
+       #     # 예측된 결과값에 천 단위 구분과 '원' 단위 추가
+       #    st.sidebar.write(f"예측된 {target_column}: {prediction[0]:,.0f} 원")
 
         # 김장재료 값의 변화를 그래프로 표시
         plot_kimchi_values(kimchi_data)
