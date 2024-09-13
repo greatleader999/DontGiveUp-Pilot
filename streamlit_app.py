@@ -60,14 +60,10 @@ def main():
     formatted_data = display_formatted_data(kimchi_data)
     st.write("김장 데이터셋 미리보기:", formatted_data.head())
 
-
-    #selected_features=[]
-    #target_column=[]
-
     st.sidebar.header('날씨 선택✅')
     input_features = ['평균기온', '평균최고기온', '최고기온', '평균최저기온', '최저기온',
                       '평균월강수량', '최다월강수량', '1시간최다강수량']
-    selected_features = st.sidebar.multiselect("",input_features, default=input_features[:3]) 
+    selected_features = st.sidebar.multiselect("", input_features, default=input_features[:3])
 
     st.sidebar.header('야채 선택🎯')
     target_options = ['배추값', '무값', '고추값', '마늘값', '쪽파값']
@@ -90,12 +86,16 @@ def main():
         st.sidebar.header('💲가격 예측하기💲')
         user_input = {feature: st.sidebar.number_input(f'{feature}', value=X[feature].mean()) for feature in selected_features}
 
-        st.write(f"모델 평균 제곱 오차 (MSE): {mse:.2f}")
-        st.write(f"결정 계수 (R^2): {r2:.2f}")
+        # 천 단위 분리기호 적용하여 값 출력
+        st.write(f"모델 평균 제곱 오차 (MSE): {mse:,.2f}")
+        st.write("MSE (Mean Squared Error): 예측 값과 실제 값 간의 차이를 제곱하여 평균한 값입니다. MSE가 낮을수록 예측이 실제에 가깝습니다.")
+
+        st.write(f"결정 계수 (R^2): {r2:,.2f}")
+        st.write("R² (결정 계수): 모델이 데이터를 얼마나 잘 설명하는지 나타냅니다. 1에 가까울수록 모델의 예측이 정확합니다.")
 
         if st.sidebar.button('실행'):
             prediction = model.predict(pd.DataFrame([user_input]))
-            st.sidebar.write(f"예측된 {target_column}: {prediction[0]:.2f}")
+            st.sidebar.write(f"예측된 {target_column}: {prediction[0]:,.2f}")
 
         st.write("선택된 특성과 타겟 변수 간의 상관관계:")
         fig = plot_correlation(kimchi_data, selected_features, target_column)
@@ -107,3 +107,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
