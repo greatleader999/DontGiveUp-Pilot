@@ -66,7 +66,7 @@ def main():
     selected_features = st.sidebar.multiselect("", input_features, default=input_features[:3])
 
     st.sidebar.header('야채 선택🎯')
-    target_options = ['배추값🥬', '무값🥕(White)', '고추값🌶️', '마늘값🧄', '쪽파값🌱']
+    target_options = ['배추값', '무값', '고추값', '마늘값', '쪽파값']
     target_column = st.sidebar.selectbox("", target_options)
 
     st.sidebar.header('고급 옵션')
