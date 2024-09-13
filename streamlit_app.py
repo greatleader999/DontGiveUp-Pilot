@@ -29,40 +29,35 @@ def plot_correlation(data, features, target):
     plt.tight_layout()  # 레이아웃 조정
     return fig
 
-# 데이터 형식 변환 함수
-def format_data(df):
-    # "일시"를 년, 월 형식으로 변환
-    df['일시'] = pd.to_datetime(df['일시']).dt.strftime('%Y-%m')
+# 화면에 표시할 때만 포맷팅 적용하는 함수
+def display_formatted_data(df):
+    formatted_df = df.copy()
     
-    # 열 이름이 '기온', '강수량', '값'과 관련된 경우 단위 추가
-    temperature_columns = ['평균기온', '평균최고기온', '최고기온', '평균최저기온', '최저기온']
-    rainfall_columns = ['평균월강수량', '최다월강수량', '1시간최다강수량']
-    price_columns = ['배추값', '무값', '고추값', '마늘값', '쪽파값']
+    # "일시" 열을 "년/월" 형식으로 변환
+    if '일시' in formatted_df.columns:
+        formatted_df['일시'] = pd.to_datetime(formatted_df['일시']).dt.strftime('%Y/%m')
     
-    # 각 열에 대해 단위 추가
-    for col in temperature_columns:
-        if col in df.columns:
-            df[col] = df[col].astype(str) + ' °C'
-    for col in rainfall_columns:
-        if col in df.columns:
-            df[col] = df[col].astype(str) + ' mm'
-    for col in price_columns:
-        if col in df.columns:
-            df[col] = df[col].astype(str) + ' 원'
+    # 기온, 강수량, 가격에 단위 추가
+    for col in formatted_df.columns:
+        if '기온' in col:
+            formatted_df[col] = formatted_df[col].astype(str) + ' °C'
+        elif '강수량' in col:
+            formatted_df[col] = formatted_df[col].astype(str) + ' mm'
+        elif '값' in col:
+            formatted_df[col] = formatted_df[col].astype(str) + ' 원'
     
-    return df
+    return formatted_df
 
-# Main 함수 내에서 데이터 포맷팅 후 표시
+# Main 함수에서 데이터 포맷 적용하여 표시
 def main():
     st.title("포기는 배추 셀 때🥬 - Don\'t give up KIMJANG😤")
 
     kimchi_data = df
     if kimchi_data is None:
         st.stop()
-    
-    # 데이터 포맷팅 적용
-    formatted_data = format_data(kimchi_data)
 
+    # 포맷 적용하여 화면에 표시
+    formatted_data = display_formatted_data(kimchi_data)
     st.write("김장 데이터셋 미리보기:", formatted_data.head())
 
     #selected_features=[]
