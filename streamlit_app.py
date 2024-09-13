@@ -98,7 +98,6 @@ def main():
             prediction = model.predict(pd.DataFrame([user_input]))
             # 예측된 결과값에 천 단위 구분과 '원' 단위 추가
             st.sidebar.write(f"예측된 {target_column}: {prediction[0]:,.0f} 원")
-
        
         st.write("선택된 특성과 타겟 변수 간의 상관관계:")
         fig = plot_correlation(kimchi_data, selected_features, target_column)
