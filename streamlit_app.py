@@ -48,7 +48,6 @@ def display_formatted_data(df):
     
     return formatted_df
 
-
 # Main 함수에서 데이터 포맷 적용하여 표시
 def main():
     st.title("포기는 배추 셀 때🥬 - Don\'t give up KIMJANG😤")
@@ -96,9 +95,8 @@ def main():
 
         if st.sidebar.button('실행'):
             prediction = model.predict(pd.DataFrame([user_input]))
-            # 예측된 결과값에 천 단위 구분과 '원' 단위 추가
-            st.sidebar.write(f"예측된 {target_column}: {prediction[0]:,.0f} 원")
-       
+            st.sidebar.write(f"예측된 {target_column}: {prediction[0]:,.2f}")
+
         st.write("선택된 특성과 타겟 변수 간의 상관관계:")
         fig = plot_correlation(kimchi_data, selected_features, target_column)
         st.pyplot(fig)
@@ -109,4 +107,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
