@@ -48,6 +48,25 @@ def display_formatted_data(df):
     
     return formatted_df
 
+# 김장재료 값의 변화를 그래프로 표시하는 함수
+def plot_kimchi_values(data):
+    fig, ax = plt.subplots(figsize=(12, 6))
+
+    # 평균월기온과 평균월강수량에 따른 김장재료 값 변화 표시
+    for target in ['배추값', '무값', '고추값', '마늘값', '쪽파값']:
+        if target in data.columns:
+            ax.plot(data['평균기온'], data[target], marker='o', label=f'{target} vs 평균기온')
+            ax.plot(data['평균월강수량'], data[target], marker='x', linestyle='--', label=f'{target} vs 평균월강수량')
+
+    ax.set_xlabel('평균월기온 / 평균월강수량')
+    ax.set_ylabel('김장재료 값 (원)')
+    ax.set_title('평균월기온과 평균월강수량에 따른 김장재료 값의 변화')
+    ax.legend()
+    plt.xticks(rotation=45)
+    plt.grid()
+    st.pyplot(fig)
+
+
 # Main 함수에서 데이터 포맷 적용하여 표시
 def main():
     st.title("포기는 배추 셀 때🥬 - Don\'t give up KIMJANG😤")
@@ -97,7 +116,10 @@ def main():
             prediction = model.predict(pd.DataFrame([user_input]))
             # 예측된 결과값에 천 단위 구분과 '원' 단위 추가
             st.sidebar.write(f"예측된 {target_column}: {prediction[0]:,.0f} 원")
-     
+
+        # 김장재료 값의 변화를 그래프로 표시
+        plot_kimchi_values(kimchi_data)
+        
         st.write("선택된 특성과 타겟 변수 간의 상관관계:")
         fig = plot_correlation(kimchi_data, selected_features, target_column)
         st.pyplot(fig)
