@@ -48,6 +48,26 @@ def display_formatted_data(df):
     
     return formatted_df
 
+# 한글 폰트 설정 함수
+def set_korean_font():
+    font_path = "/usr/share/fonts/truetype/nanum/NanumGothic.ttf"  # Colab 또는 서버 환경에서 사용할 수 있는 폰트 경로
+    font_manager.fontManager.addfont(font_path)
+    rc('font', family='NanumGothic')  # 'NanumGothic' 폰트 설정
+
+# 상관관계 그래프 함수에서 폰트 설정 적용
+def plot_correlation(data, features, target):
+    set_korean_font()  # 한글 폰트 설정
+    corr_data = data[features + [target]].corr()
+    fig, ax = plt.subplots(figsize=(10, 8))
+    sns.heatmap(corr_data, annot=True, cmap='coolwarm', ax=ax)
+    plt.xticks(rotation=45)  # x축 레이블 회전
+    plt.yticks(rotation=45)  # y축 레이블 회전
+    plt.tight_layout()  # 레이아웃 조정
+    return fig
+
+
+
+
 # Main 함수에서 데이터 포맷 적용하여 표시
 def main():
     st.title("포기는 배추 셀 때🥬 - Don\'t give up KIMJANG😤")
@@ -66,7 +86,7 @@ def main():
     selected_features = st.sidebar.multiselect("", input_features, default=input_features[:3])
 
     st.sidebar.header('야채 선택🎯')
-    target_options = ['배추값', '무값', '고추값', '마늘값', '쪽파값']
+    target_options = ['배추값🥬', '무값🥕(White)', '고추값🌶️', '마늘값🧄', '쪽파값🌱']
     target_column = st.sidebar.selectbox("", target_options)
 
     st.sidebar.header('고급 옵션')
@@ -95,8 +115,10 @@ def main():
 
         if st.sidebar.button('실행'):
             prediction = model.predict(pd.DataFrame([user_input]))
-            st.sidebar.write(f"예측된 {target_column}: {prediction[0]:,.2f}")
+            # 예측된 결과값에 천 단위 구분과 '원' 단위 추가
+            st.sidebar.write(f"예측된 {target_column}: {prediction[0]:,.0f} 원")
 
+       
         st.write("선택된 특성과 타겟 변수 간의 상관관계:")
         fig = plot_correlation(kimchi_data, selected_features, target_column)
         st.pyplot(fig)
