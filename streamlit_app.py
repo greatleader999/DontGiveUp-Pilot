@@ -48,19 +48,22 @@ def display_formatted_data(df):
     
     return formatted_df
 
-# 김장재료 값의 변화를 그래프로 표시하는 함수
+# 김장재료 값의 변화를 그래프로 표시하는 함수 (최근 12개월만 사용)
 def plot_kimchi_values(data):
+    # 최근 12개월 데이터만 선택
+    recent_data = data.tail(12)
+
     fig, ax = plt.subplots(figsize=(12, 6))
 
     # 평균월기온과 평균월강수량에 따른 김장재료 값 변화 표시
     for target in ['배추값', '무값', '고추값', '마늘값', '쪽파값']:
-        if target in data.columns:
-            ax.plot(data['평균기온'], data[target], marker='o', label=f'{target} vs 평균기온')
-            ax.plot(data['평균월강수량'], data[target], marker='x', linestyle='--', label=f'{target} vs 평균월강수량')
+        if target in recent_data.columns:
+            ax.plot(recent_data['평균기온'], recent_data[target], marker='o', label=f'{target} vs 평균기온')
+            ax.plot(recent_data['평균월강수량'], recent_data[target], marker='x', linestyle='--', label=f'{target} vs 평균월강수량')
 
     ax.set_xlabel('평균월기온 / 평균월강수량')
     ax.set_ylabel('김장재료 값 (원)')
-    ax.set_title('평균월기온과 평균월강수량에 따른 김장재료 값의 변화')
+    ax.set_title('평균월기온과 평균월강수량에 따른 김장재료 값의 변화 (최근 12개월)')
     ax.legend()
     plt.xticks(rotation=45)
     plt.grid()
