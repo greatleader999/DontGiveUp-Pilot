@@ -33,18 +33,18 @@ def plot_correlation(data, features, target):
 def display_formatted_data(df):
     formatted_df = df.copy()
     
-    # "일시" 열을 "년/월" 형식으로 변환
+    # "일시" 열을 'YY년MM월' 형식으로 변환
     if '일시' in formatted_df.columns:
-        formatted_df['일시'] = pd.to_datetime(formatted_df['일시']).dt.strftime('%Y/%m')
-    
-    # 기온, 강수량, 가격에 단위 추가
+        formatted_df['일시'] = formatted_df['일시'].apply(lambda x: f"'{str(x)[:2]}년{str(x)[2:]}월")
+
+    # 기온, 강수량, 가격에 단위 추가 및 천 단위 구분 적용
     for col in formatted_df.columns:
         if '기온' in col:
             formatted_df[col] = formatted_df[col].astype(str) + ' °C'
         elif '강수량' in col:
             formatted_df[col] = formatted_df[col].astype(str) + ' mm'
         elif '값' in col:
-            formatted_df[col] = formatted_df[col].astype(str) + ' 원'
+            formatted_df[col] = formatted_df[col].apply(lambda x: f"{int(x):,} 원")
     
     return formatted_df
 
@@ -59,6 +59,7 @@ def main():
     # 포맷 적용하여 화면에 표시
     formatted_data = display_formatted_data(kimchi_data)
     st.write("김장 데이터셋 미리보기:", formatted_data.head())
+
 
     #selected_features=[]
     #target_column=[]
