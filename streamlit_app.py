@@ -90,7 +90,7 @@ def main():
         st.write(f"모델 평균 제곱 오차 (MSE): {mse:,.2f}")
         st.write("**MSE (Mean Squared Error)의미: 예측 값과 실제 값 간의 차이를 제곱하여 평균한 값입니다. MSE가 낮을수록 예측이 실제에 가깝습니다.")
 
-        st.write(f"결정 계수 (R^2): {r2:,.2f}")
+        st.write(f"결정 계수 (R²): {r2:,.2f}")
         st.write("**R² (결정 계수)의미: 모델이 데이터를 얼마나 잘 설명하는지 나타냅니다. 1에 가까울수록 모델의 예측이 정확합니다.")
 
         if st.sidebar.button('실행'):
