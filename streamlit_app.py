@@ -48,25 +48,6 @@ def display_formatted_data(df):
     
     return formatted_df
 
-# 한글 폰트 설정 함수
-def set_korean_font():
-    font_path = "/usr/share/fonts/truetype/nanum/NanumGothic.ttf"  # Colab 또는 서버 환경에서 사용할 수 있는 폰트 경로
-    font_manager.fontManager.addfont(font_path)
-    rc('font', family='NanumGothic')  # 'NanumGothic' 폰트 설정
-
-# 상관관계 그래프 함수에서 폰트 설정 적용
-def plot_correlation(data, features, target):
-    set_korean_font()  # 한글 폰트 설정
-    corr_data = data[features + [target]].corr()
-    fig, ax = plt.subplots(figsize=(10, 8))
-    sns.heatmap(corr_data, annot=True, cmap='coolwarm', ax=ax)
-    plt.xticks(rotation=45)  # x축 레이블 회전
-    plt.yticks(rotation=45)  # y축 레이블 회전
-    plt.tight_layout()  # 레이아웃 조정
-    return fig
-
-
-
 
 # Main 함수에서 데이터 포맷 적용하여 표시
 def main():
