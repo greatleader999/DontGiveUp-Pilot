@@ -22,12 +22,7 @@ A simple Streamlit app template for you to modify!
 ## 데이터셋 확보 채널:
 
 AT센터: https://www.kamis.or.kr/customer/price/retail/period.do?action=monthly&yyyy=2018&period=10&countycode=&itemcategorycode=200&itemcode=211&kindcode=&productrankcode=0&convert_kg_yn=N
-
 기상청: https://data.kma.go.kr/climate/StatisticsDivision/selectStatisticsDivision.do?pgmNo=158
-
-담당자: 방찬미
-
-1차 확보 및 가공자료: 
 
 [돈기브업김장-rawdata.csv](https://prod-files-secure.s3.us-west-2.amazonaws.com/064c84d8-06c8-4e46-91e2-063af00e9fca/754d5c46-4af1-472c-8c5d-d3c366efa93c/%EB%8F%88%EA%B8%B0%EB%B8%8C%EC%97%85%EA%B9%80%EC%9E%A5-rawdata.csv)
 
