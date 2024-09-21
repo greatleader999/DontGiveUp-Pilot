@@ -3,6 +3,8 @@
 A simple Streamlit app template for you to modify!
 
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://blank-app-template.streamlit.app/)
+Final result and Streamlit web servce : https://dontgiveup-pilot.streamlit.app/
+![image](https://github.com/user-attachments/assets/b50b1562-be39-4493-81b4-78f6a402b891)
 
 ![image](https://github.com/user-attachments/assets/b1560d8e-7574-4d01-a370-b406799e66d7)
 
